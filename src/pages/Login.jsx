@@ -1,47 +1,99 @@
-import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '../firebase/firebase.config';
-import toast from 'react-hot-toast';
-import { useAuth } from '../context/AuthContext';
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const { signIn, googleSignIn, resetPassword } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    const email = e.target.email.value.trim();
+    const password = e.target.password.value;
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      toast.success('Logged in successfully');
-      navigate(from);
-    } catch (error) {
-      toast.error(error.message);
+      await signIn(email, password);
+      toast.success("Login successful!");
+      navigate(from, { replace: true });
+    } catch (err) {
+      toast.error(err?.message || "Login failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleGoogle = async () => {
-    const provider = new GoogleAuthProvider();
+    setLoading(true);
     try {
-      await signInWithPopup(auth, provider);
-      toast.success('Logged in with Google');
-      navigate(from);
-    } catch (error) {
-      toast.error(error.message);
+      await googleSignIn();
+      toast.success("Login successful!");
+      navigate(from, { replace: true });
+    } catch (err) {
+      toast.error(err?.message || "Google login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleForgot = async () => {
+    const email = document.querySelector('input[name="email"]')?.value?.trim();
+    if (!email) return toast.error("Type your email first");
+    try {
+      await resetPassword(email);
+      toast.success("Password reset email sent!");
+      window.open("https://mail.google.com", "_blank");
+    } catch (err) {
+      toast.error(err?.message || "Failed to send reset email");
     }
   };
 
   return (
-    <div className="container mx-auto px-4 py-16">
-      <h2 className="text-4xl font-bold text-center mb-8">Login</h2>
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="input mb-4" required />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="input mb-4" required />
-        <button type="submit" className="btn btn-primary w-full">Login</button>
-        <button onClick={handleGoogle} className="btn btn-secondary w-full mt-4">Google Login</button>
+    <div className="max-w-md mx-auto px-4 py-10">
+      <h1 className="text-3xl font-bold">Login</h1>
+      <p className="opacity-70 mt-2">Welcome back. Please login to continue.</p>
+
+      <form onSubmit={handleSubmit} className="mt-6 space-y-3">
+        <input name="email" type="email" placeholder="Email" className="input input-bordered w-full" required />
+
+        <div className="join w-full">
+          <input
+            name="password"
+            type={show ? "text" : "password"}
+            placeholder="Password"
+            className="input input-bordered join-item w-full"
+            required
+          />
+          <button type="button" className="btn join-item" onClick={() => setShow((p) => !p)}>
+            {show ? "Hide" : "Show"}
+          </button>
+        </div>
+
+        <button className="btn btn-primary w-full" disabled={loading} type="submit">
+          {loading ? "Logging in..." : "Login"}
+        </button>
+
+        <button type="button" onClick={handleGoogle} className="btn btn-outline w-full" disabled={loading}>
+          Continue with Google
+        </button>
+
+        <button type="button" onClick={handleForgot} className="btn btn-ghost w-full">
+          Forgot Password
+        </button>
+
+        <p className="text-sm opacity-70">
+          New here?{" "}
+          <Link className="text-primary font-medium" to="/register">
+            Create an account
+          </Link>
+        </p>
       </form>
     </div>
   );

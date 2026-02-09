@@ -1,50 +1,63 @@
-import { useState } from 'react';
-import axios from 'axios';
-import toast from 'react-hot-toast';
-import { useAuth } from '../context/AuthContext';
+import { useState } from "react";
+import useAuth from "../hooks/useAuth";
+import axiosPublic from "../api/axiosPublic";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-
 export default function AddService() {
-  const [formData, setFormData] = useState({ name: '', category: '', price: '', description: '', image: '' });
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const [form, setForm] = useState({
+    serviceName: "",
+    category: "",
+    price: "",
+    description: "",
+    imageURL: "",
+  });
+
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axiosPublic.post("/api/services", {
+        ...form,
+        price: Number(form.price),
+        providerName: user?.displayName || "Unknown",
+        providerEmail: user?.email,
+      });
+
+      toast.success("Service added!");
+      setForm({ serviceName: "", category: "", price: "", description: "", imageURL: "" });
+      navigate("/my-services");
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Add failed");
+    }
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    await axios.post(`${import.meta.env.VITE_API_URL}/api/services`, {
-      ...formData,
-      price: Number(formData.price),
-      providerName: user?.displayName || "Unknown",
-      providerEmail: user?.email
-    });
-
-    toast.success("Service added successfully!");
-    setFormData({ name: "", category: "", price: "", description: "", image: "" });
-
-    // optional: redirect user to my services
-    // navigate("/my-services");
-  } catch (error) {
-    toast.error(error?.response?.data?.message || "Add failed");
-  }
-};
-
-
   return (
-    <div className="container mx-auto px-4 py-16">
-      <h2 className="text-4xl font-bold text-center mb-8">Add Service</h2>
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
-        <input name="name" value={formData.name} onChange={handleChange} placeholder="Service Name" className="input" required />
-        <input name="category" value={formData.category} onChange={handleChange} placeholder="Category" className="input" required />
-        <input name="price" type="number" value={formData.price} onChange={handleChange} placeholder="Price" className="input" required />
-        <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" className="input h-32" required />
-        <input name="image" value={formData.image} onChange={handleChange} placeholder="Image URL" className="input" required />
-        <button type="submit" className="btn btn-primary w-full">Add</button>
+    <div className="max-w-3xl mx-auto px-4 py-10">
+      <h1 className="text-3xl font-bold">Add Service</h1>
+      <p className="opacity-70 mt-2">Publish a service so customers can book you.</p>
+
+      <form onSubmit={handleSubmit} className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input className="input input-bordered w-full" name="serviceName" placeholder="Service Name"
+          value={form.serviceName} onChange={handleChange} required />
+
+        <input className="input input-bordered w-full" name="category" placeholder="Category"
+          value={form.category} onChange={handleChange} required />
+
+        <input className="input input-bordered w-full" type="number" name="price" placeholder="Price"
+          value={form.price} onChange={handleChange} required />
+
+        <input className="input input-bordered w-full" name="imageURL" placeholder="Image URL"
+          value={form.imageURL} onChange={handleChange} required />
+
+        <textarea className="textarea textarea-bordered md:col-span-2" name="description" placeholder="Description"
+          value={form.description} onChange={handleChange} required />
+
+        <button className="btn btn-primary md:col-span-2">Add Service</button>
       </form>
     </div>
   );
