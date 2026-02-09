@@ -1,9 +1,45 @@
+
+@import "tailwindcss";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "tailwindcss";
 
+/* Global styles */
 body {
-  background-color: white;
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', sans-serif;
+  background-color: #f9fafb;
+  color: #111827;
+  margin: 0;
+  padding: 0;
+}
+
+/* Dark mode */
+.dark body {
+  background-color: #1f2937;
+  color: #f9fafb;
+}
+
+/* Consistent headings */
+h1, h2, h3 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Button style (consistent across site) */
+.btn {
+  @apply px-6 py-3 font-medium rounded-lg transition-all shadow-md hover:shadow-lg;
+}
+
+.btn-primary {
+  @apply bg-indigo-600 text-white hover:bg-indigo-700;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+}
+
+/* Card style */
+.card {
+  @apply bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden h-full flex flex-col;
 }
