@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import toast from "react-hot-toast";
 import ServiceCard from '../components/ServiceCard';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
@@ -28,7 +29,7 @@ export default function Home() {
     <div>
       {/* Hero Slider */}
       <Slider {...sliderSettings}>
-        <div className="relative h-96 bg-cover bg-center" style={{backgroundImage: 'url(/assets/hero1.jpg)'}}>
+        <div className="relative h-96 bg-cover bg-center" style={{backgroundImage: 'url(/assets/her01.jpg)'}}>
           <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white text-center p-6">
             <h1 className="text-5xl font-bold mb-4">Find Trusted Electricians</h1>
             <p className="text-xl mb-6">Fast and reliable electrical services</p>

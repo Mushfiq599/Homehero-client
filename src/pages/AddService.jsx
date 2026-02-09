@@ -2,28 +2,38 @@ import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from "react-router-dom";
+
 
 export default function AddService() {
   const [formData, setFormData] = useState({ name: '', category: '', price: '', description: '', image: '' });
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/services`, {
-        ...formData,
-        providerName: user.displayName,
-        providerEmail: user.email
-      });
-      toast.success('Service added');
-    } catch (error) {
-      toast.error('Add failed');
-    }
-  };
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/services`, {
+      ...formData,
+      price: Number(formData.price),
+      providerName: user?.displayName || "Unknown",
+      providerEmail: user?.email
+    });
+
+    toast.success("Service added successfully!");
+    setFormData({ name: "", category: "", price: "", description: "", image: "" });
+
+    // optional: redirect user to my services
+    // navigate("/my-services");
+  } catch (error) {
+    toast.error(error?.response?.data?.message || "Add failed");
+  }
+};
+
 
   return (
     <div className="container mx-auto px-4 py-16">

@@ -4,6 +4,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import BookingModal from '../components/BookingModal';
 import { useAuth } from '../context/AuthContext';
+import LoadingSpinner from "../components/LoadingSpinner";
+
 
 export default function ServiceDetails() {
   const { id } = useParams();

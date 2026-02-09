@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import ServiceCard from '../components/ServiceCard';
+import axiosPublic from '../api/axiosPublic';
 
 export default function Services() {
   const [services, setServices] = useState([]);
@@ -13,7 +13,7 @@ export default function Services() {
     if (minPrice) params.minPrice = minPrice;
     if (maxPrice) params.maxPrice = maxPrice;
 
-    axios.get(`${import.meta.env.VITE_API_URL}/api/services`, { params })
+    axiosPublic.get(`${import.meta.env.VITE_API_URL}/api/services`, { params })
       .then(res => setServices(res.data))
       .catch(err => toast.error('Failed to load services'));
   }, [minPrice, maxPrice]);
