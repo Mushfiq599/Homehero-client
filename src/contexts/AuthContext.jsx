@@ -1,37 +1,57 @@
-import { createContext, useState, useEffect, useContext } from 'react';
-import { auth } from '../firebase/firebase.config';
-import { onAuthStateChanged, signOut, updateProfile } from 'firebase/auth';
+import { createContext, useEffect, useState } from "react";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+  updateProfile,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import { auth } from "../firebase/firebase.config";
 
 export const AuthContext = createContext(null);
 
-export const AuthProvider = ({ children }) => {
+const googleProvider = new GoogleAuthProvider();
+
+export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const createUser = (email, password) =>
+    createUserWithEmailAndPassword(auth, email, password);
+
+  const signIn = (email, password) =>
+    signInWithEmailAndPassword(auth, email, password);
+
+  const googleSignIn = () => signInWithPopup(auth, googleProvider);
+
+  const logOut = () => signOut(auth);
+
+  const updateUserProfile = (displayName, photoURL) =>
+    updateProfile(auth.currentUser, { displayName, photoURL });
+
+  const resetPassword = (email) => sendPasswordResetEmail(auth, email);
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsub = onAuthStateChanged(auth, (current) => {
+      setUser(current);
       setLoading(false);
     });
-    return () => unsubscribe();
+    return () => unsub();
   }, []);
 
-  const logout = async () => {
-    await signOut(auth);
+  const value = {
+    user,
+    loading,
+    createUser,
+    signIn,
+    googleSignIn,
+    logOut,
+    updateUserProfile,
+    resetPassword,
   };
 
-  const updateUserProfile = async (name, photoURL) => {
-    if (auth.currentUser) {
-      await updateProfile(auth.currentUser, { displayName: name, photoURL });
-      setUser({ ...auth.currentUser, displayName: name, photoURL });
-    }
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, loading, logout, updateUserProfile }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export const useAuth = () => useContext(AuthContext);
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}

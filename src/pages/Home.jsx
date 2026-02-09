@@ -1,80 +1,79 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from "react";
+import axiosPublic from "../api/axiosPublic";
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import ServiceCard from '../components/ServiceCard';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
-import { Link } from 'react-router-dom';
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function Home() {
   const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/api/services`)
-      .then(res => setServices(res.data.slice(0, 6)))
-      .catch(err => toast.error('Failed to load services'));
+    axiosPublic
+      .get("/api/services?limit=6")
+      .then((res) => setServices(res.data))
+      .catch(() => toast.error("Failed to load services"))
+      .finally(() => setLoading(false));
   }, []);
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
-
   return (
-    <div>
-      {/* Hero Slider */}
-      <Slider {...sliderSettings}>
-        <div className="relative h-96 bg-cover bg-center" style={{backgroundImage: 'url(/assets/her01.jpg)'}}>
-          <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white text-center p-6">
-            <h1 className="text-5xl font-bold mb-4">Find Trusted Electricians</h1>
-            <p className="text-xl mb-6">Fast and reliable electrical services</p>
-            <Link to="/services" className="btn btn-primary">Explore</Link>
-          </div>
-        </div>
-        <div className="relative h-96 bg-cover bg-center" style={{backgroundImage: 'url(/assets/hero2.jpg)'}}>
-          <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white text-center p-6">
-            <h1 className="text-5xl font-bold mb-4">Expert Plumbers Near You</h1>
-            <p className="text-xl mb-6">Quality plumbing solutions</p>
-            <Link to="/services" className="btn btn-primary">Explore</Link>
-          </div>
-        </div>
-        <div className="relative h-96 bg-cover bg-center" style={{backgroundImage: 'url(/assets/hero3.jpg)'}}>
-          <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white text-center p-6">
-            <h1 className="text-5xl font-bold mb-4">Professional Cleaning Services</h1>
-            <p className="text-xl mb-6">Spotless cleaning for your home</p>
-            <Link to="/services" className="btn btn-primary">Explore</Link>
-          </div>
-        </div>
-      </Slider>
-
-      {/* Dynamic Services */}
-      <motion.div initial={ { opacity: 0 } } animate={{ opacity: 1 }} transition={{ duration: 1 }}>
-        <div className="container mx-auto px-4 py-16">
-          <h2 className="text-4xl font-bold text-center mb-12">Our Services</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {services.map(service => <ServiceCard key={service._id} service={service} />)}
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Static Sections */}
-      <section className="py-16 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Why Choose Us</h2>
-          <p className="text-xl text-center">Reliable, affordable, and trusted services.</p>
+    <div className="max-w-6xl mx-auto px-4 py-10">
+      <section className="rounded-3xl p-10 bg-gradient-to-r from-primary/10 to-base-100 border">
+        <h1 className="text-4xl font-extrabold leading-tight">
+          Book trusted home services in minutes.
+        </h1>
+        <p className="mt-3 text-base opacity-80 max-w-2xl">
+          Electricians, plumbers, cleaners, AC repair and more — all in one place.
+        </p>
+        <div className="mt-6 flex gap-3 flex-wrap">
+          <Link to="/services" className="btn btn-primary">
+            Explore Services
+          </Link>
+          <Link to="/register" className="btn btn-outline">
+            Create Account
+          </Link>
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Customer Testimonials</h2>
-          <p className="text-xl text-center"> "Great service!" - John Doe</p>
+      <section className="mt-12">
+        <div className="flex items-end justify-between gap-4 flex-wrap">
+          <div>
+            <h2 className="text-2xl font-bold">Popular Services</h2>
+            <p className="opacity-70 text-sm mt-1">
+              Top picks from our marketplace.
+            </p>
+          </div>
+          <Link to="/services" className="btn btn-sm btn-outline">
+            Show All
+          </Link>
         </div>
+
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {services.map((s) => (
+              <Link
+                key={s._id}
+                to={`/services/${s._id}`}
+                className="card bg-base-100 shadow hover:shadow-lg transition"
+              >
+                <figure className="h-44">
+                  <img
+                    src={s.imageURL}
+                    alt={s.serviceName}
+                    className="w-full h-full object-cover"
+                  />
+                </figure>
+                <div className="card-body">
+                  <h3 className="card-title">{s.serviceName}</h3>
+                  <p className="text-sm opacity-70">{s.category}</p>
+                  <div className="mt-2 font-bold text-primary">${s.price}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
