@@ -6,3 +6,6 @@
 body {
   font-family: Inter, system-ui, Arial, sans-serif;
 }
+.card {
+  @apply transition-transform duration-300 hover:scale-[1.05];
+}

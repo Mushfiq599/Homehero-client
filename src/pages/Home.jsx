@@ -18,26 +18,88 @@ export default function Home() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <section className="rounded-3xl p-10 bg-gradient-to-r from-primary/10 to-base-100 border">
-        <h1 className="text-4xl font-extrabold leading-tight">
-          Book trusted home services in minutes.
-        </h1>
-        <p className="mt-3 text-base opacity-80 max-w-2xl">
-          Electricians, plumbers, cleaners, AC repair and more — all in one place.
-        </p>
-        <div className="mt-6 flex gap-3 flex-wrap">
-          <Link to="/services" className="btn btn-primary">
-            Explore Services
-          </Link>
-          <Link to="/register" className="btn btn-outline">
-            Create Account
-          </Link>
+      <div className="w-full">
+        <div className="carousel w-full h-[420px] rounded-2xl overflow-hidden">
+
+          {/* Slide 1 */}
+          <div id="slide1" className="carousel-item relative w-full">
+            <img
+              src="https://images.unsplash.com/photo-1581578731548-c64695cc6952"
+              className="w-full object-cover"
+              alt="Home services"
+            />
+            <div className="absolute inset-0 bg-black/50 flex items-center">
+              <div className="max-w-6xl mx-auto px-6 text-white">
+                <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                  Book trusted home services
+                </h1>
+                <p className="mb-6 max-w-xl">
+                  Electricians, plumbers, cleaners and more — all in one place.
+                </p>
+                <div className="flex gap-3">
+                  <a href="/services" className="btn btn-primary">Explore Services</a>
+                  <a href="/register" className="btn btn-outline text-white">Get Started</a>
+                </div>
+              </div>
+            </div>
+            <div className="absolute left-5 right-5 bottom-5 flex justify-between">
+              <a href="#slide3" className="btn btn-circle">❮</a>
+              <a href="#slide2" className="btn btn-circle">❯</a>
+            </div>
+          </div>
+
+          {/* Slide 2 */}
+          <div id="slide2" className="carousel-item relative w-full">
+            <img
+              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+              className="w-full object-cover"
+              alt="Professionals"
+            />
+            <div className="absolute inset-0 bg-black/50 flex items-center">
+              <div className="max-w-6xl mx-auto px-6 text-white">
+                <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                  Verified professionals
+                </h1>
+                <p className="mb-6 max-w-xl">
+                  Skilled experts with ratings and reviews you can trust.
+                </p>
+              </div>
+            </div>
+            <div className="absolute left-5 right-5 bottom-5 flex justify-between">
+              <a href="#slide1" className="btn btn-circle">❮</a>
+              <a href="#slide3" className="btn btn-circle">❯</a>
+            </div>
+          </div>
+
+          {/* Slide 3 */}
+          <div id="slide3" className="carousel-item relative w-full">
+            <img
+              src="https://images.unsplash.com/photo-1597099971277-ec33fd0b89e5"
+              className="w-full object-cover"
+              alt="Fast booking"
+            />
+            <div className="absolute inset-0 bg-black/50 flex items-center">
+              <div className="max-w-6xl mx-auto px-6 text-white">
+                <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                  Fast & hassle-free booking
+                </h1>
+                <p className="mb-6 max-w-xl">
+                  Book services in minutes from your home.
+                </p>
+              </div>
+            </div>
+            <div className="absolute left-5 right-5 bottom-5 flex justify-between">
+              <a href="#slide2" className="btn btn-circle">❮</a>
+              <a href="#slide1" className="btn btn-circle">❯</a>
+            </div>
+          </div>
+
         </div>
-      </section>
+      </div>
 
       <section className="mt-12">
         <div className="flex items-end justify-between gap-4 flex-wrap">
-          <div>
+          <div data-aos="fade-up">
             <h2 className="text-2xl font-bold">Popular Services</h2>
             <p className="opacity-70 text-sm mt-1">
               Top picks from our marketplace.
@@ -51,12 +113,17 @@ export default function Home() {
         {loading ? (
           <LoadingSpinner />
         ) : (
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+            data-aos="fade-up"
+            data-aos-delay="150"
+          >
+
             {services.map((s) => (
               <Link
                 key={s._id}
                 to={`/services/${s._id}`}
                 className="card bg-base-100 shadow hover:shadow-lg transition"
+                data-aos="zoom-in"
               >
                 <figure className="h-44">
                   <img
@@ -65,7 +132,7 @@ export default function Home() {
                     className="w-full h-full object-cover"
                   />
                 </figure>
-                <div className="card-body">
+                <div className="card-body" >
                   <h3 className="card-title">{s.serviceName}</h3>
                   <p className="text-sm opacity-70">{s.category}</p>
                   <div className="mt-2 font-bold text-primary">${s.price}</div>
