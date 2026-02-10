@@ -29,11 +29,11 @@ h1, h2, h3 {
 }
 
 .btn-primary {
-  @apply bg-indigo-600 text-white hover:bg-indigo-700;
+  @apply bg-teal-700 text-white hover:bg-teal-900;
 }
 
 .btn-secondary {
-  @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+  @apply bg-gray-200 text-gray-800 hover:bg-gray-500;
 }
 
 /* Card style */

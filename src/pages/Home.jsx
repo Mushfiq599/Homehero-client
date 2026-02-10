@@ -43,7 +43,7 @@ export default function Home() {
               Top picks from our marketplace.
             </p>
           </div>
-          <Link to="/services" className="btn btn-sm btn-outline">
+          <Link to="/services" className="btn btn-sm btn-primary">
             Show All
           </Link>
         </div>
