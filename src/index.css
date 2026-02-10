@@ -9,3 +9,10 @@ body {
 .card {
   @apply transition-transform duration-300 hover:scale-[1.05];
 }
+.text-primary{
+  @apply text-slate-600
+}
+.text-secondary{
+  @apply text-white
+}
+

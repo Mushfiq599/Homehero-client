@@ -5,11 +5,13 @@ import { getServices } from "../api/services";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorState from "../components/ErrorState";
 import ServiceCard from "../components/ServiceCard";
+import useAuth from "../hooks/useAuth";
 
 export default function Home() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
+    const { user } = useAuth();
 
   useEffect(() => {
     let alive = true;
@@ -56,12 +58,22 @@ export default function Home() {
                 Electricians, plumbers, cleaners and more — all in one place.
               </p>
               <div className="flex gap-3">
-                <Link to="/services" className="btn btn-primary">
+                <Link to="/services" className="btn btn-accent">
                   Explore Services
                 </Link>
-                <Link to="/register" className="btn btn-outline text-white">
+
+
+                {!user ? (
+                  <Link to="/register" className="btn btn-outline btn-accent text-white">
                   Get Started
                 </Link>
+                ) : (
+                  ""
+                )}
+
+
+
+                
               </div>
             </div>
           </div>
@@ -127,7 +139,7 @@ export default function Home() {
               Top picks from our marketplace.
             </p>
           </div>
-          <Link to="/services" className="btn btn-outline btn-sm">
+          <Link to="/services" className="btn btn-outline btn-accent btn-sm">
             Show All
           </Link>
         </div>

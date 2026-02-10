@@ -21,7 +21,7 @@ export default function Header() {
       <NavLink
         to={to}
         className={({ isActive }) =>
-          isActive ? "font-semibold text-primary" : ""
+          isActive ? "font-semibold text-teal-600" : ""
         }
       >
         {children}
@@ -79,16 +79,16 @@ export default function Header() {
 
                 {!user ? (
                   <li className="mt-2 flex gap-2">
-                    <Link className="btn btn-outline btn-sm flex-1" to="/login">
+                    <Link className="btn btn-outline btn-accent btn-sm flex-1" to="/login">
                       Login
                     </Link>
-                    <Link className="btn btn-primary btn-sm flex-1" to="/register">
+                    <Link className="btn btn-accent btn-sm flex-1" to="/register">
                       Register
                     </Link>
                   </li>
                 ) : (
                   <li className="mt-2">
-                    <button onClick={handleLogout} className="btn btn-outline btn-sm w-full">
+                    <button onClick={handleLogout} className="btn btn-outline btn-accent btn-sm w-full">
                       Logout
                     </button>
                   </li>
@@ -96,7 +96,8 @@ export default function Header() {
               </ul>
             </div>
 
-            <Link to="/" className="btn btn-ghost text-xl">
+            <Link to="/" className="btn btn-ghost text-teal-600 text-xl font-bold">
+            <img src="/public/maintenance.png" alt="logo" className="w-8 rounded "/>
               HomeHero
             </Link>
           </div>
@@ -126,10 +127,10 @@ export default function Header() {
 
             {!user ? (
               <div className="hidden lg:flex gap-2">
-                <Link className="btn btn-outline" to="/login">
+                <Link className="btn btn-outline btn-accent" to="/login">
                   Login
                 </Link>
-                <Link className="btn btn-primary" to="/register">
+                <Link className="btn btn-accent" to="/register">
                   Register
                 </Link>
               </div>
@@ -150,7 +151,7 @@ export default function Header() {
                   </div>
                 </div>
 
-                <button onClick={handleLogout} className="btn btn-outline">
+                <button onClick={handleLogout} className="btn btn-outline btn-accent">
                   Logout
                 </button>
               </div>
