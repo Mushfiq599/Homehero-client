@@ -1,7 +1,13 @@
 import axios from "axios";
 
-const axiosPublic = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
+// If VITE_API_URL is set -> use it
+// Otherwise fallback to localhost server
+const baseURL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+const api = axios.create({
+  baseURL,
+  // only needed if you use cookies (JWT cookie etc.)
+  // withCredentials: true,
 });
 
-export default axiosPublic;
+export default api;

@@ -1,7 +1,10 @@
-export default function LoadingSpinner() {
+export default function LoadingSpinner({ label = "Loading..." }) {
   return (
-    <div className="min-h-[40vh] flex items-center justify-center">
-      <span className="loading loading-spinner loading-lg text-primary"></span>
+    <div className="flex items-center justify-center py-10">
+      <div className="flex items-center gap-3">
+        <span className="loading loading-spinner loading-md" />
+        <span className="opacity-70">{label}</span>
+      </div>
     </div>
   );
 }
