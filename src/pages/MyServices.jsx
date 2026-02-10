@@ -1,32 +1,31 @@
 import { useEffect, useState } from "react";
-import useAuth from "../hooks/useAuth";
-import axiosPublic from "../api/axiosPublic";
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import useAuth from "../hooks/useAuth";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { deleteService, getServices } from "../api/services";
 
 export default function MyServices() {
   const { user } = useAuth();
-  const [services, setServices] = useState([]);
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [editing, setEditing] = useState(null);
-  const [editData, setEditData] = useState({
-    serviceName: "",
-    category: "",
-    price: "",
-    description: "",
-    imageURL: "",
-  });
+  const load = async () => {
+    if (!user?.email) return;
+    try {
+      setLoading(true);
+      const data = await getServices({ email: user.email });
+      setItems(Array.isArray(data) ? data : []);
+    } catch {
+      toast.error("Failed to load your services");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    if (!user?.email) return;
-    setLoading(true);
-
-    axiosPublic
-      .get(`/api/services?email=${encodeURIComponent(user.email)}`)
-      .then((res) => setServices(res.data))
-      .catch(() => toast.error("Failed to load my services"))
-      .finally(() => setLoading(false));
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.email]);
 
   const handleDelete = async (id) => {
@@ -34,122 +33,75 @@ export default function MyServices() {
     if (!ok) return;
 
     try {
-      await axiosPublic.delete(`/api/services/${id}`);
-      setServices((prev) => prev.filter((s) => s._id !== id));
-      toast.success("Deleted");
-    } catch {
-      toast.error("Delete failed");
+      await deleteService(id);
+      toast.success("Service deleted");
+      setItems((prev) => prev.filter((s) => s._id !== id));
+    } catch (e) {
+      toast.error(e?.response?.data?.message || "Delete failed");
     }
   };
 
-  const openEdit = (s) => {
-    setEditing(s);
-    setEditData({
-      serviceName: s.serviceName,
-      category: s.category,
-      price: s.price,
-      description: s.description,
-      imageURL: s.imageURL,
-    });
-    document.getElementById("edit_modal").showModal();
-  };
-
-  const saveEdit = async (e) => {
-    e.preventDefault();
-    try {
-      await axiosPublic.patch(`/api/services/${editing._id}`, {
-        ...editData,
-        price: Number(editData.price),
-      });
-
-      setServices((prev) =>
-        prev.map((x) =>
-          x._id === editing._id
-            ? { ...x, ...editData, price: Number(editData.price) }
-            : x
-        )
-      );
-
-      toast.success("Updated!");
-      document.getElementById("edit_modal").close();
-      setEditing(null);
-    } catch {
-      toast.error("Update failed");
-    }
-  };
-
-  if (loading) return <LoadingSpinner />;
+  if (loading) return <LoadingSpinner label="Loading your services..." />;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold">My Services</h1>
-      <p className="opacity-70 mt-2">Manage your published services.</p>
+      <div className="flex items-end justify-between gap-3 flex-wrap">
+        <div>
+          <h1 className="text-3xl font-extrabold">My Services</h1>
+          <p className="opacity-70 mt-1">Manage services you’ve added.</p>
+        </div>
 
-      {services.length === 0 ? (
-        <div className="mt-10 text-center opacity-70">No services yet.</div>
+        <Link to="/add-service" className="btn btn-primary btn-sm">
+          + Add Service
+        </Link>
+      </div>
+
+      {items.length === 0 ? (
+        <div className="mt-10 text-center opacity-70">
+          You haven’t added any services yet.
+        </div>
       ) : (
-        <div className="mt-6 overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Service</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th className="text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {services.map((s) => (
-                <tr key={s._id}>
-                  <td className="font-medium">{s.serviceName}</td>
-                  <td>{s.category}</td>
-                  <td className="font-bold text-primary">${s.price}</td>
-                  <td className="text-right space-x-2">
-                    <button className="btn btn-sm btn-secondary" onClick={() => openEdit(s)}>
-                      Edit
-                    </button>
-                    <button className="btn btn-sm btn-error" onClick={() => handleDelete(s._id)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+          {items.map((s) => (
+            <div key={s._id} className="card bg-base-100 border">
+              <div className="card-body">
+                <div className="flex gap-4">
+                  <img
+                    src={s.imageURL}
+                    alt={s.serviceName}
+                    className="w-24 h-24 rounded-xl object-cover"
+                  />
+                  <div className="flex-1">
+                    <h3 className="font-bold text-lg">{s.serviceName}</h3>
+                    <div className="text-sm opacity-70">{s.category}</div>
+                    <div className="mt-1 font-extrabold text-teal-700">
+                      ${s.price}
+                    </div>
+                    <div className="text-xs opacity-60 mt-1">
+                      {s.providerEmail}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="card-actions justify-end mt-4">
+                  <Link
+                    to={`/update-service/${s._id}`}
+                    className="btn btn-outline btn-sm"
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(s._id)}
+                    className="btn btn-outline btn-sm"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       )}
-
-      <dialog id="edit_modal" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Update Service</h3>
-
-          <form onSubmit={saveEdit} className="mt-4 space-y-3">
-            <input className="input input-bordered w-full" value={editData.serviceName}
-              onChange={(e) => setEditData({ ...editData, serviceName: e.target.value })} placeholder="Service Name" />
-
-            <input className="input input-bordered w-full" value={editData.category}
-              onChange={(e) => setEditData({ ...editData, category: e.target.value })} placeholder="Category" />
-
-            <input className="input input-bordered w-full" type="number" value={editData.price}
-              onChange={(e) => setEditData({ ...editData, price: e.target.value })} placeholder="Price" />
-
-            <input className="input input-bordered w-full" value={editData.imageURL}
-              onChange={(e) => setEditData({ ...editData, imageURL: e.target.value })} placeholder="Image URL" />
-
-            <textarea className="textarea textarea-bordered w-full" value={editData.description}
-              onChange={(e) => setEditData({ ...editData, description: e.target.value })} placeholder="Description" />
-
-            <div className="modal-action">
-              <button type="button" className="btn" onClick={() => document.getElementById("edit_modal").close()}>
-                Cancel
-              </button>
-              <button className="btn btn-primary" type="submit">
-                Save
-              </button>
-            </div>
-          </form>
-        </div>
-      </dialog>
     </div>
   );
 }

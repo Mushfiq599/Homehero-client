@@ -13,6 +13,7 @@ import Register from "../pages/Register";
 import ErrorPage from "../pages/ErrorPage";
 
 import PrivateRoute from "./PrivateRoute";
+import UpdateService from "../pages/UpdateService";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyServices />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "update-service/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateService />
           </PrivateRoute>
         ),
       },
