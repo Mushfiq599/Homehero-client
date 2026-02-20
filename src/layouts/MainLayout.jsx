@@ -8,7 +8,7 @@ export default function MainLayout() {
     <>
       <Header />
       <PageLoader />
-      <main className="min-h-[calc(100vh-200px)]">
+      <main className="min-h-[calc(100vh-200px)] bg-[#F8FAFC]">
         <Outlet />
       </main>
       <Footer />

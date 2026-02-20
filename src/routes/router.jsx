@@ -11,9 +11,9 @@ import Profile from "../pages/Profile";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ErrorPage from "../pages/ErrorPage";
+import UpdateService from "../pages/UpdateService";
 
 import PrivateRoute from "./PrivateRoute";
-import UpdateService from "../pages/UpdateService";
 
 const router = createBrowserRouter([
   {
@@ -23,14 +23,11 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "services", element: <Services /> },
-      {
-        path: "services/:id",
-        element: (
-          <PrivateRoute>
-            <ServiceDetails />
-          </PrivateRoute>
-        ),
-      },
+
+      // Service Details is PUBLIC (no PrivateRoute)
+      { path: "services/:id", element: <ServiceDetails /> },
+
+      // Protected routes
       {
         path: "add-service",
         element: (

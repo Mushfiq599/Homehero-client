@@ -97,7 +97,7 @@ export default function Header() {
             </div>
 
             <Link to="/" className="btn btn-ghost text-teal-600 text-xl font-bold">
-            <img src="/public/maintenance.png" alt="logo" className="w-8 rounded "/>
+            <img src="/maintenance.png" alt="logo" className="w-8 rounded "/>
               HomeHero
             </Link>
           </div>

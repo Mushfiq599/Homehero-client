@@ -1,164 +1,200 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
-import { getServices } from "../api/services";
-import LoadingSpinner from "../components/LoadingSpinner";
-import ErrorState from "../components/ErrorState";
-import ServiceCard from "../components/ServiceCard";
-import useAuth from "../hooks/useAuth";
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import { Link } from 'react-router-dom';
+import ServiceCard from '../components/ServiceCard';
+import LoadingSpinner from '../components/LoadingSpinner';
+
+// Hero slides (use your own images later)
+const slides = [
+  {
+    image: "https://images.unsplash.com/photo-1581578731547-79b8a6d0e2a6?w=1200",
+    headline: "Fast & Reliable Plumbing",
+    details: "Emergency fixes, installations, and more — same-day service",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1581092160560-1c1e428e9d65?w=1200",
+    headline: "Expert Electricians",
+    details: "Wiring, repairs, lighting — certified & safe professionals",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1581578731547-79b8a6d0e2a6?w=1200",
+    headline: "Professional Cleaning",
+    details: "Deep cleaning for homes & offices — spotless results",
+  },
+];
 
 export default function Home() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [err, setErr] = useState("");
-    const { user } = useAuth();
 
   useEffect(() => {
-    let alive = true;
-
-    (async () => {
+    const fetchServices = async () => {
       try {
-        setLoading(true);
-        setErr("");
-        const data = await getServices({ limit: 6 });
-        if (alive) setServices(data);
-      } catch (e) {
-        const msg = e?.message || "Failed to load services";
-        if (alive) {
-          setErr(msg);
-          toast.error(msg); // one toast only
-        }
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/services`);
+        setServices(res.data.slice(0, 6)); // take only first 6
+      } catch (err) {
+        toast.error('Failed to load services');
       } finally {
-        if (alive) setLoading(false);
+        setLoading(false);
       }
-    })();
-
-    return () => {
-      alive = false;
     };
+    fetchServices();
   }, []);
 
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 800,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: true,
+    arrows: false,
+  };
+
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      {/* ✅ HERO CAROUSEL */}
-      <div className="carousel w-full h-[420px] rounded-2xl overflow-hidden">
-        {/* Slide 1 */}
-        <div id="slide1" className="carousel-item relative w-full">
-          <img
-            src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1600&q=60"
-            className="w-full object-cover"
-            alt="Home services"
-          />
-          <div className="absolute inset-0 bg-black/50 flex items-center">
-            <div className="max-w-6xl mx-auto px-6 text-white">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Book trusted home services
-              </h1>
-              <p className="mb-6 max-w-xl opacity-90">
-                Electricians, plumbers, cleaners and more — all in one place.
-              </p>
-              <div className="flex gap-3">
-                <Link to="/services" className="btn btn-accent">
-                  Explore Services
-                </Link>
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950">
 
+      {/* Hero Slider */}
+      <Slider {...sliderSettings}>
+        {slides.map((slide, index) => (
+          <div key={index} className="relative h-[500px] md:h-[700px]">
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url(${slide.image})` }}
+            >
+              <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-white text-center px-6">
+                <motion.h1
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.2 }}
+                  className="text-4xl md:text-6xl font-extrabold mb-6"
+                >
+                  {slide.headline}
+                </motion.h1>
 
-                {!user ? (
-                  <Link to="/register" className="btn btn-outline btn-accent text-white">
-                  Get Started
-                </Link>
-                ) : (
-                  ""
-                )}
+                <motion.p
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.4 }}
+                  className="text-lg md:text-2xl mb-10 max-w-3xl"
+                >
+                  {slide.details}
+                </motion.p>
 
-
-
-                
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                >
+                  <Link
+                    to="/services"
+                    className="inline-block px-10 py-5 bg-white text-indigo-700 font-bold text-lg rounded-full hover:bg-gray-100 transition transform hover:scale-105 shadow-xl"
+                  >
+                    Explore Services
+                  </Link>
+                </motion.div>
               </div>
             </div>
           </div>
-          <div className="absolute left-5 right-5 bottom-5 flex justify-between">
-            <a href="#slide3" className="btn btn-circle">❮</a>
-            <a href="#slide2" className="btn btn-circle">❯</a>
-          </div>
-        </div>
+        ))}
+      </Slider>
 
-        {/* Slide 2 */}
-        <div id="slide2" className="carousel-item relative w-full">
-          <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=60"
-            className="w-full object-cover"
-            alt="Professionals"
-          />
-          <div className="absolute inset-0 bg-black/50 flex items-center">
-            <div className="max-w-6xl mx-auto px-6 text-white">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Verified professionals
-              </h1>
-              <p className="mb-6 max-w-xl opacity-90">
-                Skilled experts with ratings and reviews you can trust.
-              </p>
+      {/* 6 Services Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="py-20 bg-white dark:bg-gray-900"
+      >
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+            Our Services
+          </h2>
+
+          {loading ? (
+            <div className="flex justify-center items-center h-40">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-indigo-600"></div>
             </div>
-          </div>
-          <div className="absolute left-5 right-5 bottom-5 flex justify-between">
-            <a href="#slide1" className="btn btn-circle">❮</a>
-            <a href="#slide3" className="btn btn-circle">❯</a>
-          </div>
-        </div>
-
-        {/* Slide 3 */}
-        <div id="slide3" className="carousel-item relative w-full">
-          <img
-            src="https://images.unsplash.com/photo-1597099971277-ec33fd0b89e5?auto=format&fit=crop&w=1600&q=60"
-            className="w-full object-cover"
-            alt="Fast booking"
-          />
-          <div className="absolute inset-0 bg-black/50 flex items-center">
-            <div className="max-w-6xl mx-auto px-6 text-white">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Fast & hassle-free booking
-              </h1>
-              <p className="mb-6 max-w-xl opacity-90">
-                Book services in minutes from your home.
-              </p>
-            </div>
-          </div>
-          <div className="absolute left-5 right-5 bottom-5 flex justify-between">
-            <a href="#slide2" className="btn btn-circle">❮</a>
-            <a href="#slide1" className="btn btn-circle">❯</a>
-          </div>
-        </div>
-      </div>
-
-      {/* ✅ POPULAR SERVICES */}
-      <section className="mt-12" data-aos="fade-up">
-        <div className="flex items-end justify-between gap-3 flex-wrap">
-          <div>
-            <h2 className="text-2xl font-extrabold">Popular Services</h2>
-            <p className="opacity-70 text-sm mt-1">
-              Top picks from our marketplace.
+          ) : services.length === 0 ? (
+            <p className="text-center text-xl text-gray-600 dark:text-gray-400">
+              No services available yet
             </p>
-          </div>
-          <Link to="/services" className="btn btn-outline btn-accent btn-sm">
-            Show All
-          </Link>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((service) => (
+                <ServiceCard key={service._id} service={service} />
+              ))}
+            </div>
+          )}
         </div>
+      </motion.section>
 
-        {loading && <LoadingSpinner label="Loading services..." />}
-        {err && !loading && <ErrorState message={err} />}
-
-        {!loading && !err && (
-          <div
-            className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
-            data-aos="fade-up"
-            data-aos-delay="150"
-          >
-            {services.map((s) => (
-              <ServiceCard key={s._id} s={s} />
-            ))}
+      {/* Static Section 1: Why Choose Us */}
+      <section className="py-20 bg-gray-100 dark:bg-gray-800">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+            Why Choose Us
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+              <h3 className="text-2xl font-bold mb-4">Trusted Professionals</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Verified and rated service providers
+              </p>
+            </div>
+            <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+              <h3 className="text-2xl font-bold mb-4">Fast Booking</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Book in minutes, get help today
+              </p>
+            </div>
+            <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+              <h3 className="text-2xl font-bold mb-4">Affordable Rates</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Transparent pricing, no hidden fees
+              </p>
+            </div>
           </div>
-        )}
+        </div>
       </section>
+
+
+{/* Static Section 2: Testimonials */}
+      <section className="py-20 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+            What Our Customers Say
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="p-8 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md">
+              <p className="text-lg italic mb-4">
+                "Fast response and excellent service! Highly recommend."
+              </p>
+              <p className="font-semibold">— Sarah Ahmed</p>
+            </div>
+            <div className="p-8 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md">
+              <p className="text-lg italic mb-4">
+                "The plumber was professional and fixed everything quickly."
+              </p>
+              <p className="font-semibold">— Rahim Khan</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
+
+     
+
+      
+  
