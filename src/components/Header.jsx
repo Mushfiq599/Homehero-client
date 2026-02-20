@@ -5,7 +5,7 @@ import useTheme from "../hooks/useTheme";
 
 export default function Header() {
   const { user, logOut } = useAuth();
-  const { theme, toggle } = useTheme();
+  const { theme, toggleTheme } = useTheme();   // ← Correct destructuring
 
   const handleLogout = async () => {
     try {
@@ -72,8 +72,11 @@ export default function Header() {
                 )}
 
                 <li className="mt-2">
-                  <button className="btn btn-sm w-full" onClick={toggle}>
-                    Theme: {theme === "light" ? "Light" : "Dark"}
+                  <button 
+                    className="btn btn-sm w-full" 
+                    onClick={toggleTheme}   // ← correct function name
+                  >
+                    {theme === "light" ? "Switch to Dark" : "Switch to Light"}
                   </button>
                 </li>
 
@@ -97,7 +100,7 @@ export default function Header() {
             </div>
 
             <Link to="/" className="btn btn-ghost text-teal-600 text-xl font-bold">
-            <img src="/maintenance.png" alt="logo" className="w-8 rounded "/>
+              <img src="/maintenance.png" alt="logo" className="w-8 rounded" />
               HomeHero
             </Link>
           </div>
@@ -120,9 +123,14 @@ export default function Header() {
           </div>
 
           {/* RIGHT */}
-          <div className="navbar-end gap-2">
-            <button onClick={toggle} className="btn btn-ghost hidden lg:inline-flex">
-              {theme === "light" ? "🌙" : "☀️"}
+          <div className="navbar-end gap-4 items-center">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full transition"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? "☀️" : "🌙"}
             </button>
 
             {!user ? (
@@ -135,7 +143,7 @@ export default function Header() {
                 </Link>
               </div>
             ) : (
-              <div className="hidden lg:flex items-center gap-2">
+              <div className="hidden lg:flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   <div className="avatar">
                     <div className="w-9 rounded-full">

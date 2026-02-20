@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 
 export default function ServiceCard({ service }) {
   return (
-    <div className="card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+    <div className="card bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
       <img 
-        src={service.image} 
+        src={service.imageURL} 
         alt={service.name} 
         className="w-full h-48 object-cover"
       />

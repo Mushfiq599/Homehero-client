@@ -12,17 +12,17 @@ import LoadingSpinner from '../components/LoadingSpinner';
 // Hero slides (use your own images later)
 const slides = [
   {
-    image: "https://images.unsplash.com/photo-1581578731547-79b8a6d0e2a6?w=1200",
+    image: "https://lirp.cdn-website.com/2914e64f/dms3rep/multi/opt/5+Important+Plumbing+Services+You+Should+Know+About-1920w.jpg",
     headline: "Fast & Reliable Plumbing",
     details: "Emergency fixes, installations, and more — same-day service",
   },
   {
-    image: "https://images.unsplash.com/photo-1581092160560-1c1e428e9d65?w=1200",
+    image: "https://gacservices.com/wp-content/uploads/2018/01/electrician-working-on-electrical-panel-circuit-breaker-box.jpg",
     headline: "Expert Electricians",
     details: "Wiring, repairs, lighting — certified & safe professionals",
   },
   {
-    image: "https://images.unsplash.com/photo-1581578731547-79b8a6d0e2a6?w=1200",
+    image: "https://tripledscleaningservices.com/wp-content/uploads/2025/01/AdobeStock_331709911.jpg",
     headline: "Professional Cleaning",
     details: "Deep cleaning for homes & offices — spotless results",
   },

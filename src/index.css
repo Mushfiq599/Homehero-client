@@ -16,3 +16,9 @@ body {
   @apply text-white
 }
 
+.dark {
+  --tw-bg-opacity: 1;
+  background-color: #0f172a; /* slate-900 */
+  color: #f1f5f9; /* slate-100 */
+}
+

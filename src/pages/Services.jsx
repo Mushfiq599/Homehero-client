@@ -65,8 +65,8 @@ export default function Services() {
             <div className="py-12 text-center opacity-70">No Service Found</div>
           ) : (
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {filtered.map((s) => (
-                <ServiceCard key={s._id} s={s} />
+              {filtered.map((service) => (
+                <ServiceCard key={service._id} service={service} />
               ))}
             </div>
           )}
