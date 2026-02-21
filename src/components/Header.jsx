@@ -2,10 +2,12 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import useTheme from "../hooks/useTheme";
+import { IoMdSunny } from "react-icons/io";
+import { FaMoon } from "react-icons/fa";
 
 export default function Header() {
   const { user, logOut } = useAuth();
-  const { theme, toggleTheme } = useTheme();   // ← Correct destructuring
+  const { theme, toggleTheme } = useTheme();
 
   const handleLogout = async () => {
     try {
@@ -30,13 +32,12 @@ export default function Header() {
   );
 
   return (
-    <div className="sticky top-0 z-50 bg-base-100 shadow-sm">
-      {/* IMPORTANT: container max width */}
+    <div className="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-sm">
       <div className="max-w-6xl mx-auto px-4">
         <div className="navbar px-0">
-          {/* LEFT */}
+
           <div className="navbar-start">
-            {/* Mobile menu */}
+
             <div className="dropdown">
               <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                 <svg
@@ -72,26 +73,26 @@ export default function Header() {
                 )}
 
                 <li className="mt-2">
-                  <button 
-                    className="btn btn-sm w-full" 
-                    onClick={toggleTheme}   // ← correct function name
+                  <button
+                    className="btn btn-sm w-full"
+                    onClick={toggleTheme}
                   >
-                    {theme === "light" ? "Switch to Dark" : "Switch to Light"}
+                    Switch to {theme === "light" ? "Dark" : "Light"}
                   </button>
                 </li>
 
                 {!user ? (
                   <li className="mt-2 flex gap-2">
-                    <Link className="btn btn-outline btn-accent btn-sm flex-1" to="/login">
+                    <Link className="btn btn-secondary btn-sm flex-1" to="/login">
                       Login
                     </Link>
-                    <Link className="btn btn-accent btn-sm flex-1" to="/register">
+                    <Link className="btn btn-outline btn-accent btn-sm flex-1" to="/register">
                       Register
                     </Link>
                   </li>
                 ) : (
                   <li className="mt-2">
-                    <button onClick={handleLogout} className="btn btn-outline btn-accent btn-sm w-full">
+                    <button onClick={handleLogout} className="btn btn-secondary btn-sm w-full">
                       Logout
                     </button>
                   </li>
@@ -99,13 +100,12 @@ export default function Header() {
               </ul>
             </div>
 
-            <Link to="/" className="btn btn-ghost text-teal-600 text-xl font-bold">
+            <Link to="/" className="flex gap-2 text-teal-600 text-xl font-bold">
               <img src="/maintenance.png" alt="logo" className="w-8 rounded" />
               HomeHero
             </Link>
           </div>
 
-          {/* CENTER (desktop only) */}
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">
               <NavItem to="/">Home</NavItem>
@@ -122,23 +122,24 @@ export default function Header() {
             </ul>
           </div>
 
-          {/* RIGHT */}
           <div className="navbar-end gap-4 items-center">
-            {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full transition"
+              className="p-2 rounded-full  transition"
               aria-label="Toggle theme"
             >
-              {theme === "dark" ? "☀️" : "🌙"}
+              {theme === "dark" ? <IoMdSunny />
+                :
+                <FaMoon />
+              }
             </button>
 
             {!user ? (
               <div className="hidden lg:flex gap-2">
-                <Link className="btn btn-outline btn-accent" to="/login">
+                <Link className="btn btn-secondary" to="/login">
                   Login
                 </Link>
-                <Link className="btn btn-accent" to="/register">
+                <Link className="btn btn-outline btn-accent" to="/register">
                   Register
                 </Link>
               </div>
@@ -159,7 +160,7 @@ export default function Header() {
                   </div>
                 </div>
 
-                <button onClick={handleLogout} className="btn btn-outline btn-accent">
+                <button onClick={handleLogout} className="btn btn-secondary ">
                   Logout
                 </button>
               </div>

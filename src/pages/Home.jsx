@@ -59,7 +59,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-gray-800">
 
       {/* Hero Slider */}
       <Slider {...sliderSettings}>
@@ -69,7 +69,7 @@ export default function Home() {
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-white text-center px-6">
+              <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-gray-900 dark:text-gray-100 text-center px-6">
                 <motion.h1
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -95,7 +95,7 @@ export default function Home() {
                 >
                   <Link
                     to="/services"
-                    className="inline-block px-10 py-5 bg-white text-indigo-700 font-bold text-lg rounded-full hover:bg-gray-100 transition transform hover:scale-105 shadow-xl"
+                    className="inline-block px-10 py-5 bg-white dark:bg-gray-800 text-indigo-700 font-bold text-lg rounded-full hover:bg-gray-100 transition transform hover:scale-105 shadow-xl"
                   >
                     Explore Services
                   </Link>
@@ -112,10 +112,10 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="py-20 bg-white dark:bg-gray-900"
+        className="py-20 bg-white dark:bg-gray-800 dark:bg-gray-900"
       >
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-gray-900 dark:text-gray-100">
             Our Services
           </h2>
 
@@ -140,23 +140,23 @@ export default function Home() {
       {/* Static Section 1: Why Choose Us */}
       <section className="py-20 bg-gray-100 dark:bg-gray-800">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-gray-900 dark:text-gray-100">
             Why Choose Us
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+            <div className="text-center p-8 bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-md">
               <h3 className="text-2xl font-bold mb-4">Trusted Professionals</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Verified and rated service providers
               </p>
             </div>
-            <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+            <div className="text-center p-8 bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-md">
               <h3 className="text-2xl font-bold mb-4">Fast Booking</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Book in minutes, get help today
               </p>
             </div>
-            <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+            <div className="text-center p-8 bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-md">
               <h3 className="text-2xl font-bold mb-4">Affordable Rates</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Transparent pricing, no hidden fees
@@ -168,9 +168,9 @@ export default function Home() {
 
 
 {/* Static Section 2: Testimonials */}
-      <section className="py-20 bg-white dark:bg-gray-900">
+      <section className="py-20 bg-white dark:bg-gray-800 dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-gray-900 dark:text-gray-100">
             What Our Customers Say
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">

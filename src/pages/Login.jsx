@@ -58,33 +58,28 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-10 bg-base-100">
-      <div className="w-full max-w-[380px] bg-white rounded-2xl shadow-xl border border-base-200 p-6 sm:p-7">
-        {/* Title */}
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-[380px] bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-base-200 p-6 sm:p-7">
         <p className="text-center text-2xl font-extrabold tracking-tight">
           Welcome back
         </p>
         <p className="text-center text-xs opacity-70 mt-2">
           Login to continue using HomeHero
         </p>
-
-        {/* Form */}
         <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
           <input
             name="email"
             type="email"
             placeholder="Email"
-            className="w-full rounded-full border border-base-300 px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="w-full bg-white dark:bg-gray-800 rounded-full border border-base-300 px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             required
           />
-
-          {/* Password + toggle */}
           <div className="relative">
             <input
               name="password"
               type={show ? "text" : "password"}
               placeholder="Password"
-              className="w-full rounded-full border border-base-300 px-4 py-3 pr-24 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="w-full bg-white dark:bg-gray-800 rounded-full border border-base-300 px-4 py-3 pr-24 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 "
               required
             />
             <button
@@ -96,7 +91,6 @@ export default function Login() {
             </button>
           </div>
 
-          {/* Forgot */}
           <button
             type="button"
             onClick={handleForgot}
@@ -104,10 +98,8 @@ export default function Login() {
           >
             Forgot password?
           </button>
-
-          {/* Submit */}
           <button
-            className="w-full rounded-full py-3 font-semibold text-white bg-teal-600 hover:bg-teal-700 transition shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full rounded-full py-3 font-semibold text-gray-900 dark:text-gray-100 bg-teal-600 hover:bg-teal-700 transition shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
             disabled={loading}
             type="submit"
           >
@@ -115,7 +107,6 @@ export default function Login() {
           </button>
         </form>
 
-        {/* Signup link */}
         <p className="mt-4 text-[11px] text-gray-500">
           New here?{" "}
           <Link
@@ -126,15 +117,11 @@ export default function Login() {
           </Link>
         </p>
 
-        {/* Social buttons */}
         <div className="mt-6 flex flex-col gap-3">
-          
-
-          {/* Google (real) */}
           <button
             type="button"
             onClick={handleGoogle}
-            className="w-full rounded-full py-3 px-4 bg-white border-2 border-gray-400 shadow flex items-center justify-center gap-2 text-sm disabled:opacity-60"
+            className="w-full rounded-full py-3 px-4 bg-white dark:bg-gray-800 border-2 border-gray-400 shadow flex items-center justify-center gap-2 text-sm disabled:opacity-60"
             disabled={loading}
           >
             <svg

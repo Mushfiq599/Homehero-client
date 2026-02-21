@@ -59,7 +59,7 @@ export default function ServiceDetails() {
             alt={service.name}
             className="w-full h-96 object-cover rounded-xl shadow-xl"
           />
-          <div className="mt-6 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+          <div className="mt-6 p-6 bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-md">
             <h3 className="text-2xl font-bold mb-4">{service.name}</h3>
             <p className="text-3xl font-bold text-indigo-600 mb-4">${service.price}</p>
             <p className="text-gray-600 dark:text-gray-400 mb-2">
@@ -73,7 +73,7 @@ export default function ServiceDetails() {
 
         {/* Right - Description & Book Button */}
         <div>
-          <h1 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white">
+          <h1 className="text-4xl font-bold mb-6 text-gray-900 dark:text-gray-900 dark:text-gray-100">
             {service.name}
           </h1>
           <p className="text-lg mb-8 leading-relaxed text-gray-700 dark:text-gray-300">
@@ -83,7 +83,7 @@ export default function ServiceDetails() {
           <button
             onClick={() => setModalOpen(true)}
             disabled={service.providerEmail === user?.email || !user}
-            className={`w-full md:w-auto px-10 py-4 rounded-lg font-bold text-white transition text-lg ${
+            className={`w-full md:w-auto px-10 py-4 rounded-lg font-bold text-gray-900 dark:text-gray-100 transition text-lg ${
               service.providerEmail === user?.email || !user
                 ? 'bg-gray-400 cursor-not-allowed'
                 : 'bg-indigo-600 hover:bg-indigo-700'
@@ -106,7 +106,7 @@ export default function ServiceDetails() {
 
       {/* Reviews Section */}
       <section className="mt-16">
-        <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+        <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-gray-900 dark:text-gray-100">
           Customer Reviews
         </h2>
         {service.reviews?.length > 0 ? (

@@ -34,7 +34,7 @@ export default function Profile() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+      <h1 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-gray-900 dark:text-gray-100">
         Your Profile
       </h1>
 
@@ -47,7 +47,7 @@ export default function Profile() {
               alt={user.displayName || 'User'}
               className="w-40 h-40 rounded-full object-cover border-4 border-indigo-600 shadow-xl"
             />
-            <div className="absolute bottom-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+            <div className="absolute bottom-2 right-2 bg-green-500 text-gray-900 dark:text-gray-100 text-xs font-bold px-2 py-1 rounded-full">
               {user.emailVerified ? 'Verified' : 'Unverified'}
             </div>
           </div>
@@ -66,8 +66,8 @@ export default function Profile() {
         </div>
 
         {/* Right - Update Form */}
-        <div className="md:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
-          <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+        <div className="md:col-span-2 bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-lg p-8">
+          <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-900 dark:text-gray-100">
             Update Profile
           </h3>
 
@@ -80,7 +80,7 @@ export default function Profile() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-900 dark:text-gray-100"
                 required
               />
             </div>
@@ -94,7 +94,7 @@ export default function Profile() {
                 value={photoURL}
                 onChange={(e) => setPhotoURL(e.target.value)}
                 placeholder="https://example.com/your-photo.jpg"
-                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-900 dark:text-gray-100"
               />
               {photoURL && (
                 <div className="mt-4 flex justify-center">
@@ -113,7 +113,7 @@ export default function Profile() {
             <button
               type="submit"
               disabled={updating}
-              className={`w-full px-6 py-4 rounded-lg font-bold text-white transition text-lg ${
+              className={`w-full px-6 py-4 rounded-lg font-bold text-gray-900 dark:text-gray-100 transition text-lg ${
                 updating ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
               }`}
             >

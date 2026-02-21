@@ -60,9 +60,8 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-10 bg-base-100">
-      <div className="w-full max-w-[380px] bg-white rounded-2xl shadow-xl border border-base-200 p-6 sm:p-7">
-        {/* Title */}
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-10 ">
+      <div className="w-full max-w-[380px] bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-base-200 p-6 sm:p-7">
         <p className="text-center text-2xl font-extrabold tracking-tight">
           Create account
         </p>
@@ -76,7 +75,7 @@ export default function Register() {
             name="name"
             type="text"
             placeholder="Name"
-            className="w-full rounded-full border border-base-300 px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="w-full bg-white dark:bg-gray-800 rounded-full border border-base-300 px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             required
           />
 
@@ -84,7 +83,7 @@ export default function Register() {
             name="photo"
             type="url"
             placeholder="Photo URL"
-            className="w-full rounded-full border border-base-300 px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="w-full bg-white dark:bg-gray-800 rounded-full border border-base-300 px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             required
           />
 
@@ -92,7 +91,7 @@ export default function Register() {
             name="email"
             type="email"
             placeholder="Email"
-            className="w-full rounded-full border border-base-300 px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="w-full bg-white dark:bg-gray-800 rounded-full border border-base-300 px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             required
           />
 
@@ -102,7 +101,7 @@ export default function Register() {
               name="password"
               type={show ? "text" : "password"}
               placeholder="Password"
-              className="w-full rounded-full border border-base-300 px-4 py-3 pr-24 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="w-full bg-white dark:bg-gray-800 rounded-full border border-base-300 px-4 py-3 pr-24 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
               required
             />
             <button
@@ -116,7 +115,7 @@ export default function Register() {
 
           {/* Submit */}
           <button
-            className="w-full rounded-full py-3 font-semibold text-white bg-teal-600 hover:bg-teal-700 transition shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full rounded-full py-3 font-semibold text-gray-900 dark:text-gray-100 bg-teal-600 hover:bg-teal-700 transition shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
             disabled={loading}
             type="submit"
           >
@@ -143,7 +142,7 @@ export default function Register() {
           <button
             type="button"
             onClick={handleGoogle}
-            className="w-full rounded-full py-3 px-4 bg-white border-2 border-gray-400 shadow flex items-center justify-center gap-2 text-sm disabled:opacity-60"
+            className="w-full rounded-full py-3 px-4 bg-white dark:bg-gray-800 border-2 border-gray-400 shadow flex items-center justify-center gap-2 text-sm disabled:opacity-60"
             disabled={loading}
           >
             {/* Google icon */}

@@ -1,10 +1,24 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import  useAuth  from '../hooks/useAuth'; // adjust path if needed
+import toast from 'react-hot-toast';
 
 export default function ServiceCard({ service }) {
+  const { user } = useAuth(); // get current user 
+  const navigate = useNavigate();
+
+  const handleViewDetails = (e) => {
+    if (!user) {
+      e.preventDefault(); // prevent navigation
+      toast.error("Please login to view service details");
+      navigate('/login');
+    return;
+    }
+  };
+
   return (
-    <div className="card bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+    <div className="card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
       <img 
-        src={service.imageURL} 
+        src={service.image} 
         alt={service.name} 
         className="w-full h-48 object-cover"
       />
@@ -21,12 +35,23 @@ export default function ServiceCard({ service }) {
         <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4 flex-grow">
           {service.description}
         </p>
-        <Link
-          to={`/services/${service._id}`}
-          className="btn btn-primary mt-auto w-full text-center"
-        >
-          View Details
-        </Link>
+
+        {/* Protected Link */}
+        {user ? (
+          <Link
+            to={`/services/${service._id}`}
+            className="btn btn-primary mt-auto w-full text-center"
+          >
+            View Details
+          </Link>
+        ) : (
+          <button
+            onClick={handleViewDetails}
+            className="btn btn-primary mt-auto w-full text-center opacity-70 cursor-pointer"
+          >
+            View Details 
+          </button>
+        )}
       </div>
     </div>
   );

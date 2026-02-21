@@ -50,7 +50,7 @@ export default function MyBookings() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-2">
+      <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-900 dark:text-gray-100 mb-2">
         My Bookings
       </h1>
       <p className="text-gray-600 dark:text-gray-400 mb-8">
@@ -58,13 +58,13 @@ export default function MyBookings() {
       </p>
 
       {bookings.length === 0 ? (
-        <div className="mt-10 text-center py-20 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+        <div className="mt-10 text-center py-20 bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-md">
           <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
             You have no bookings yet.
           </p>
           <Link
             to="/services"
-            className="inline-block px-8 py-4 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition shadow-md"
+            className="inline-block px-8 py-4 bg-indigo-600 text-gray-900 dark:text-gray-100 font-medium rounded-lg hover:bg-indigo-700 transition shadow-md"
           >
             Browse Services
           </Link>
@@ -74,7 +74,7 @@ export default function MyBookings() {
           {bookings.map((booking) => (
             <div
               key={booking._id}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col h-full"
+              className="bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col h-full"
             >
               <div className="p-6 flex flex-col flex-grow">
                 <div className="flex items-start gap-4 mb-4">
@@ -84,7 +84,7 @@ export default function MyBookings() {
                     className="w-20 h-20 rounded-lg object-cover flex-shrink-0"
                   />
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white line-clamp-2">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-900 dark:text-gray-100 line-clamp-2">
                       {booking.serviceId?.name || 'Service'}
                     </h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -105,7 +105,7 @@ export default function MyBookings() {
                 <div className="mt-auto pt-4 border-t dark:border-gray-700">
                   <button
                     onClick={() => handleCancel(booking._id)}
-                    className="w-full px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition shadow-md"
+                    className="w-full px-6 py-3 bg-red-600 hover:bg-red-700 text-gray-900 dark:text-gray-100 font-medium rounded-lg transition shadow-md"
                   >
                     Cancel Booking
                   </button>

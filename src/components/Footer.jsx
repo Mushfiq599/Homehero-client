@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-2">
               {/* Logo (you can replace with <img src="/logo.png" />) */}
-              <div className="w-10 h-10 rounded-2xl text-white grid place-items-center font-black">
+              <div className="w-10 h-10 rounded-2xl text-gray-900 dark:text-gray-100 grid place-items-center font-black">
                 <img src="/public/maintenance.png" alt="logo" className="w-8 rounded "/>
               </div>
               <div className="leading-tight">
@@ -39,7 +39,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Facebook"
-                className="w-10 h-10 rounded-xl border text-teal-600 bg-white grid place-items-center hover:border-teal-600 hover:text-teal-700 transition"
+                className="w-10 h-10 rounded-xl border text-teal-600 bg-white dark:bg-gray-800 grid place-items-center hover:border-teal-600 hover:text-teal-700 transition"
               >
                 <FaFacebookF />
               </a>
@@ -49,7 +49,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="X (Twitter)"
-                className="w-10 h-10 rounded-xl border text-teal-600 bg-white grid place-items-center hover:border-teal-600 hover:text-teal-700 transition"
+                className="w-10 h-10 rounded-xl border text-teal-600 bg-white dark:bg-gray-800 grid place-items-center hover:border-teal-600 hover:text-teal-700 transition"
               >
                 <FaXTwitter />
               </a>
@@ -59,7 +59,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"
-                className="w-10 h-10 rounded-xl border text-teal-600 bg-white grid place-items-center hover:border-teal-600 hover:text-teal-700 transition"
+                className="w-10 h-10 rounded-xl border text-teal-600 bg-white dark:bg-gray-800 grid place-items-center hover:border-teal-600 hover:text-teal-700 transition"
               >
                 <FaLinkedinIn />
               </a>
@@ -69,7 +69,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub"
-                className="w-10 h-10 rounded-xl border text-teal-600 bg-white grid place-items-center hover:border-teal-600 hover:text-teal-700 transition"
+                className="w-10 h-10 rounded-xl border text-teal-600 bg-white dark:bg-gray-800 grid place-items-center hover:border-teal-600 hover:text-teal-700 transition"
               >
                 <FaGithub />
               </a>
@@ -150,9 +150,9 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Email address"
-                className="input input-bordered w-full bg-white"
+                className="input input-bordered w-full bg-white dark:bg-gray-800"
               />
-              <button className="btn bg-teal-600 hover:bg-teal-700 text-white border-none px-3">
+              <button className="btn bg-teal-600 hover:bg-teal-700 text-gray-900 dark:text-gray-100 border-none px-3">
                 Join
               </button>
             </form>
