@@ -1,25 +1,26 @@
-# HomeHero
+# HomeHero - Local Household Service Finder
 
-HomeHero is a home service marketplace web app where users can explore services, view details (protected), book a service, and manage their bookings. Service providers can add, update, and delete services from their dashboard.
+**Live Site**: [https://homehero-client.netlify.app](https://homehero-client.netlify.app) 
 
-## Features
-- Firebase Authentication (Email/Password + Google)
-- Protected Routes (redirects to login, returns to intended page)
-- Services CRUD (Add / Update / Delete)
-- Booking System (Create booking, view My Bookings, cancel booking)
-- Responsive UI with TailwindCSS + DaisyUI
-- Toast notifications & loading states
+**Backend Repo**: https://github.com/Mushfiq599/homehero-server  
+**Client Repo**: https://github.com/Mushfiq599/Homehero-client
 
-## Tech Stack
-- React + Vite
-- React Router DOM
-- TailwindCSS + DaisyUI
-- Firebase Authentication
-- Node.js + Express
-- MongoDB
+### Key Features
+- Browse and search all household services (cleaning, plumbing, electrical, etc.)
+- View detailed service info + book appointments with date picker
+- User authentication (email/password + Google login)
+- Private routes: Add Service, My Services, My Bookings, Profile
+- Booking restriction: Can't book your own service
+- Responsive design with light/dark mode toggle
+- Real-time toast notifications for success/error
+- Loading spinners & error handling
+- Clean, modern UI with Tailwind CSS + Framer Motion animations
 
-## Live Links
-- Client: (add your deployed link)
-- Server: (add your deployed link)
+### Technologies Used
+- Frontend: React, Vite, Tailwind CSS, React Router, Axios, React Hot Toast, SweetAlert2
+- Backend: Node.js, Express, MongoDB (Atlas), Mongoose
+- Auth: Firebase Authentication
+- Deployment: Netlify (client), Vercel (server)
+!
 
 

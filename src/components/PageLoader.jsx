@@ -7,7 +7,7 @@ export default function PageLoader() {
 
   useEffect(() => {
     setShow(true);
-    const t = setTimeout(() => setShow(false), 350); // small smooth load
+    const t = setTimeout(() => setShow(false), 350);
     return () => clearTimeout(t);
   }, [location.pathname]);
 

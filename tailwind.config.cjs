@@ -4,10 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#4F46E5', // indigo
-        secondary: '#10B981', // green
-        accent: '#F59E0B', // amber
-        bgLight: '#F0F9FF', // light blue for light mode
+        primary: '#4F46E5', 
+        secondary: '#10B981', 
+        accent: '#F59E0B', 
+        bgLight: '#F0F9FF', 
       },
     },
   },
@@ -15,5 +15,5 @@ module.exports = {
   daisyui: {
     themes: ["light", "dark", "cupcake", "bumblebee", "emerald", "corporate"],
   },
-  darkMode: 'class', // ← Add this line
+  darkMode: 'class', 
 };

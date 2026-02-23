@@ -4,11 +4,14 @@ export default function ErrorPage() {
   const err = useRouteError();
 
   return (
-    <div className="min-h-screen bg-base-100 flex flex-col">
+    <div className="min-h-screen bg-primary flex flex-col">
       <div className="border-b">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/" className="font-bold text-xl">HomeHero</Link>
-          <Link to="/services" className="btn btn-sm btn-outline">Services</Link>
+          <Link to="/" className="flex gap-2 text-teal-600 text-xl font-bold">
+              <img src="/assets/maintenance.png" alt="logo" className="w-8 rounded" />
+              HomeHero
+            </Link>
+          <Link to="/services" className="text-gray-700">Services</Link>
         </div>
       </div>
 
@@ -17,13 +20,13 @@ export default function ErrorPage() {
           <img
             src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=60"
             alt="404"
-            className="w-full h-56 object-cover rounded-2xl"
+            className="w-full h-64 object-cover rounded-2xl"
           />
-          <h1 className="mt-6 text-4xl font-extrabold">404</h1>
+          <h1 className="mt-4 text-4xl font-extrabold text-primary">404</h1>
           <p className="opacity-70 mt-2">
-            Page not found. {err?.statusText || err?.message || ""}
+            Page {err?.statusText || err?.message || ""}
           </p>
-          <Link to="/" className="btn btn-primary mt-6">Back to Home</Link>
+          <Link to="/" className="btn btn-secondary mt-4">Back to Home</Link>
         </div>
       </div>
 

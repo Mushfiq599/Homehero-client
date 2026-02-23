@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-
 import Home from "../pages/Home";
 import Services from "../pages/Services";
 import ServiceDetails from "../pages/ServiceDetails";
@@ -12,7 +11,6 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ErrorPage from "../pages/ErrorPage";
 import UpdateService from "../pages/UpdateService";
-
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -23,11 +21,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "services", element: <Services /> },
-
-      // Service Details is PUBLIC (no PrivateRoute)
       { path: "services/:id", element: <ServiceDetails /> },
-
-      // Protected routes
       {
         path: "add-service",
         element: (
