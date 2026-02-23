@@ -34,20 +34,19 @@ export default function Profile() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-gray-900 dark:text-gray-100">
+      <h1 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-gray-100">
         Your Profile
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-        {/* Left - Photo & Basic Info */}
         <div className="md:col-span-1 flex flex-col items-center text-center">
           <div className="relative mb-6">
             <img
               src={user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || 'User')}&background=4f46e5&color=fff&size=128`}
               alt={user.displayName || 'User'}
-              className="w-40 h-40 rounded-full object-cover border-4 border-indigo-600 shadow-xl"
+              className="w-40 h-40 rounded-full object-cover border-4 border-teal-600 shadow-xl"
             />
-            <div className="absolute bottom-2 right-2 bg-green-500 text-gray-900 dark:text-gray-100 text-xs font-bold px-2 py-1 rounded-full">
+            <div className="absolute bottom-2 right-2 bg-indigo-500 text-gray-900 dark:text-gray-100 text-xs font-bold px-2 py-1 rounded-full">
               {user.emailVerified ? 'Verified' : 'Unverified'}
             </div>
           </div>
@@ -64,29 +63,27 @@ export default function Profile() {
               : 'N/A'}
           </p>
         </div>
-
-        {/* Right - Update Form */}
-        <div className="md:col-span-2 bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-lg p-8">
-          <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-900 dark:text-gray-100">
-            Update Profile
+        <div className="md:col-span-2 bg-primary rounded-xl shadow-lg p-8">
+          <h3 className="text-2xl font-bold mb-6 text-teal-600">
+            Update Your Profile
           </h3>
 
           <form onSubmit={handleUpdate} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium  text-gray-700 dark:text-gray-300 mb-1">
                 Full Name *
               </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-900 dark:text-gray-100"
+                className="w-full px-4 py-3 bg-primary border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium  text-gray-700 dark:text-gray-300 mb-1">
                 Photo URL (optional)
               </label>
               <input
@@ -94,7 +91,7 @@ export default function Profile() {
                 value={photoURL}
                 onChange={(e) => setPhotoURL(e.target.value)}
                 placeholder="https://example.com/your-photo.jpg"
-                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-900 dark:text-gray-100"
+                className="w-full px-4 py-3 bg-primary border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
               />
               {photoURL && (
                 <div className="mt-4 flex justify-center">
@@ -114,7 +111,7 @@ export default function Profile() {
               type="submit"
               disabled={updating}
               className={`w-full px-6 py-4 rounded-lg font-bold text-gray-900 dark:text-gray-100 transition text-lg ${
-                updating ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
+                updating ? 'bg-gray-400 cursor-not-allowed' : 'bg-teal-600 hover:bg-teal-700'
               }`}
             >
               {updating ? 'Updating...' : 'Update Profile'}

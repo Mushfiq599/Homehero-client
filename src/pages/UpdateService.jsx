@@ -54,8 +54,6 @@ export default function UpdateService() {
 
   if (loading) return <LoadingSpinner label="Loading service..." />;
   if (!service) return <div className="p-10 text-center">Not found</div>;
-
-  // Optional: prevent editing others’ services (client-side check)
   if (user?.email && service?.providerEmail && user.email !== service.providerEmail) {
     return <div className="p-10 text-center">Unauthorized</div>;
   }
@@ -65,19 +63,19 @@ export default function UpdateService() {
       <h1 className="text-3xl font-extrabold">Update Service</h1>
       <p className="opacity-70 mt-1">Edit your service details.</p>
 
-      <form onSubmit={handleSubmit} className="mt-6 card bg-base-100 border">
+      <form onSubmit={handleSubmit} className="mt-6 card bg-white dark:bg-gray-800 border">
         <div className="card-body space-y-3">
           <input
             name="serviceName"
             defaultValue={service.serviceName}
-            className="input input-bordered w-full"
+            className="input input-bordered w-full bg-white dark:bg-gray-800 border pl-2"
             placeholder="Service Name"
             required
           />
           <input
             name="category"
             defaultValue={service.category}
-            className="input input-bordered w-full"
+            className="input input-bordered w-full bg-white dark:bg-gray-800 border pl-2"
             placeholder="Category"
             required
           />
@@ -86,26 +84,26 @@ export default function UpdateService() {
             type="number"
             step="0.01"
             defaultValue={service.price}
-            className="input input-bordered w-full"
+            className="input input-bordered w-full bg-white dark:bg-gray-800 border pl-2"
             placeholder="Price"
             required
           />
           <input
             name="imageURL"
             defaultValue={service.imageURL}
-            className="input input-bordered w-full"
+            className="input input-bordered w-full bg-white dark:bg-gray-800 border pl-2"
             placeholder="Image URL"
             required
           />
           <textarea
             name="description"
             defaultValue={service.description}
-            className="textarea textarea-bordered w-full min-h-[140px]"
+            className="textarea textarea-bordered w-full min-h-[140px] bg-white dark:bg-gray-800 border pl-2"
             placeholder="Description"
             required
           />
 
-          <button className="btn btn-primary w-full" type="submit">
+          <button className="btn btn-secondary w-full" type="submit">
             Save Changes
           </button>
         </div>

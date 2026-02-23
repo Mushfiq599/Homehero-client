@@ -32,7 +32,7 @@ export default function Header() {
   );
 
   return (
-    <div className="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-sm">
+    <div className="sticky top-0 z-50 bg-[#F0F9FF] dark:bg-gray-800 shadow-sm">
       <div className="max-w-6xl mx-auto px-4">
         <div className="navbar px-0">
 
@@ -101,7 +101,7 @@ export default function Header() {
             </div>
 
             <Link to="/" className="flex gap-2 text-teal-600 text-xl font-bold">
-              <img src="/maintenance.png" alt="logo" className="w-8 rounded" />
+              <img src="/assets/maintenance.png" alt="logo" className="w-8 rounded" />
               HomeHero
             </Link>
           </div>

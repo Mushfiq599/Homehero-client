@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
-import { createService } from "../api/services"; // ✅ use api helper
+import { createService } from "../api/services"; 
 
 export default function AddService() {
   const { user } = useAuth();
@@ -74,7 +74,7 @@ export default function AddService() {
         className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4"
       >
         <input
-          className="input input-bordered w-full"
+          className="input input-bordered w-full pl-2 bg-primary"
           name="serviceName"
           placeholder="Service Name"
           value={form.serviceName}
@@ -83,7 +83,7 @@ export default function AddService() {
         />
 
         <input
-          className="input input-bordered w-full"
+          className="input input-bordered w-full pl-2 bg-primary"
           name="category"
           placeholder="Category (e.g. Cleaning, Plumbing)"
           value={form.category}
@@ -92,7 +92,7 @@ export default function AddService() {
         />
 
         <input
-          className="input input-bordered w-full"
+          className="input input-bordered w-full pl-2 bg-primary"
           type="number"
           step="0.01"
           name="price"
@@ -103,7 +103,7 @@ export default function AddService() {
         />
 
         <input
-          className="input input-bordered w-full"
+          className="input input-bordered w-full pl-2 bg-primary"
           name="imageURL"
           placeholder="Image URL"
           value={form.imageURL}
@@ -112,7 +112,7 @@ export default function AddService() {
         />
 
         <textarea
-          className="textarea textarea-bordered md:col-span-2 min-h-[140px]"
+          className="textarea textarea-bordered md:col-span-2 min-h-[140px] pl-2 bg-primary"
           name="description"
           placeholder="Description"
           value={form.description}
@@ -121,7 +121,7 @@ export default function AddService() {
         />
 
         <button
-          className="btn btn-primary md:col-span-2"
+          className="btn btn-secondary md:col-span-2"
           disabled={loading}
           type="submit"
         >

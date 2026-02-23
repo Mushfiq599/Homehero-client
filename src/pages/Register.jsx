@@ -69,7 +69,6 @@ export default function Register() {
           Create your first account with HomeHero
         </p>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
           <input
             name="name"
@@ -95,7 +94,6 @@ export default function Register() {
             required
           />
 
-          {/* Password + toggle */}
           <div className="relative">
             <input
               name="password"
@@ -105,15 +103,14 @@ export default function Register() {
               required
             />
             <button
-                          type="button"
-                          onClick={() => setShow((p) => !p)}
-                          className="absolute right-2 top-1/2 -translate-y-1/2 pr-3"
-                        >
-                          {show ? <FaEyeSlash /> : <FaEye />}
-                        </button>
+              type="button"
+              onClick={() => setShow((p) => !p)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 pr-3"
+            >
+              {show ? <FaEyeSlash /> : <FaEye />}
+            </button>
           </div>
 
-          {/* Submit */}
           <button
             className="w-full rounded-full py-3 font-semibold text-gray-900 dark:text-gray-100 bg-teal-600 hover:bg-teal-700 transition shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
             disabled={loading}
@@ -123,7 +120,6 @@ export default function Register() {
           </button>
         </form>
 
-        {/* Login link */}
         <p className="mt-4 text-[11px] text-gray-500">
           Already have an account?{" "}
           <Link
@@ -134,18 +130,14 @@ export default function Register() {
           </Link>
         </p>
 
-        {/* Social buttons */}
         <div className="mt-6 flex flex-col gap-3">
-          
-
-          {/* Google (real) */}
           <button
             type="button"
             onClick={handleGoogle}
             className="w-full rounded-full py-3 px-4 bg-white dark:bg-gray-800 border-2 border-gray-400 shadow flex items-center justify-center gap-2 text-sm disabled:opacity-60"
             disabled={loading}
           >
-            {/* Google icon */}
+
             <svg
               stroke="currentColor"
               fill="currentColor"

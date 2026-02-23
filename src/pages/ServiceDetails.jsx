@@ -31,7 +31,7 @@ export default function ServiceDetails() {
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/api/bookings`, bookingData, {
         headers: {
-          Authorization: `Bearer ${await user.getIdToken()}` // optional if using token auth
+          Authorization: `Bearer ${await user.getIdToken()}`
         }
       });
       toast.success('Booking successful!');
@@ -50,63 +50,73 @@ export default function ServiceDetails() {
   );
 
   return (
-    <div className="container mx-auto px-4 py-16 max-w-6xl">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Left - Image & Quick Info */}
-        <div>
+    <div className="container mx-auto px-4 py-10 md:py-16 max-w-7xl">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+        <div className="relative rounded-2xl overflow-hidden shadow-2xl">
           <img
             src={service.imageURL}
-            alt={service.name}
-            className="w-full h-96 object-cover rounded-xl shadow-xl"
+            alt={service.serviceName}
+            className="w-full h-[400px] md:h-[500px] lg:h-full object-cover"
           />
-          <div className="mt-6 p-6 bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-md">
-            <h3 className="text-2xl font-bold mb-4">{service.name}</h3>
-            <p className="text-3xl font-bold text-indigo-600 mb-4">${service.price}</p>
-            <p className="text-gray-600 dark:text-gray-400 mb-2">
-              Category: <span className="font-medium">{service.category}</span>
-            </p>
-            <p className="text-gray-600 dark:text-gray-400">
-              Provider: <span className="font-medium">{service.providerName}</span>
-            </p>
+          <div className="absolute top-4 left-4 bg-teal-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
+            {service.category}
           </div>
         </div>
+        <div className="flex flex-col justify-between">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+              {service.serviceName}
+            </h1>
 
-        {/* Right - Description & Book Button */}
-        <div>
-          <h1 className="text-4xl font-bold mb-6 text-gray-900 dark:text-gray-900 dark:text-gray-100">
-            {service.name}
-          </h1>
-          <p className="text-lg mb-8 leading-relaxed text-gray-700 dark:text-gray-300">
-            {service.description}
-          </p>
+            <div className="flex items-center gap-4 mb-6">
+              <p className="text-4xl font-extrabold text-teal-600 dark:text-teal-400">
+                ${service.price}
+              </p>
+              <span className="text-lg text-gray-600 dark:text-gray-400">
+                {service.category}
+              </span>
+            </div>
 
-          <button
-            onClick={() => setModalOpen(true)}
-            disabled={service.providerEmail === user?.email || !user}
-            className={`w-full md:w-auto px-10 py-4 rounded-lg font-bold text-gray-900 dark:text-gray-100 transition text-lg ${
-              service.providerEmail === user?.email || !user
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-indigo-600 hover:bg-indigo-700'
-            }`}
-          >
-            {service.providerEmail === user?.email
-              ? "Can't Book Your Own Service"
-              : !user
-              ? "Login to Book"
-              : 'Book Now'}
-          </button>
-
-          {!user && (
-            <p className="text-sm text-gray-500 mt-3">
-              Please login to book this service
+            <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-8">
+              {service.description}
             </p>
-          )}
+
+            <div className="space-y-3 mb-10">
+              <p className="text-gray-600 dark:text-gray-400">
+                <span className="font-medium text-gray-900 dark:text-gray-100">Provider:</span> {service.providerName}
+              </p>
+              <p className="text-gray-600 dark:text-gray-400">
+                <span className="font-medium text-gray-900 dark:text-gray-100">Email:</span> {service.providerEmail}
+              </p>
+            </div>
+          </div>
+          <div>
+            <button
+              onClick={() => setModalOpen(true)}
+              disabled={service.providerEmail === user?.email || !user}
+              className={`w-full px-10 py-5 rounded-xl font-bold text-lg transition shadow-xl ${
+                service.providerEmail === user?.email || !user
+                  ? 'bg-gray-400 cursor-not-allowed text-gray-700'
+                  : 'bg-teal-600 hover:bg-teal-700 text-white'
+              }`}
+            >
+              {service.providerEmail === user?.email
+                ? "Can't Book Your Own Service"
+                : !user
+                ? "Login to Book"
+                : 'Book Now'}
+            </button>
+
+            {!user && (
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-4 text-center">
+                Please login to book this service
+              </p>
+            )}
+          </div>
         </div>
       </div>
-
-      {/* Reviews Section */}
       <section className="mt-16">
-        <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-gray-900 dark:text-gray-100">
+        <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-gray-100">
           Customer Reviews
         </h2>
         {service.reviews?.length > 0 ? (
@@ -117,7 +127,7 @@ export default function ServiceDetails() {
                   <span className="text-yellow-400 text-2xl">★★★★★</span>
                   <span className="ml-2 font-bold">{rev.rating}/5</span>
                 </div>
-                <p className="italic mb-3">"{rev.comment}"</p>
+                <p className="italic mb-3 text-gray-700 dark:text-gray-300">"{rev.comment}"</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   By {rev.userEmail.split('@')[0]}
                 </p>
@@ -130,8 +140,6 @@ export default function ServiceDetails() {
           </p>
         )}
       </section>
-
-      {/* Booking Modal */}
       <BookingModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}

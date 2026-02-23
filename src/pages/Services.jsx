@@ -48,7 +48,7 @@ export default function Services() {
             Total: <span className="font-semibold">{services.length}</span>
           </div>
           <input
-            className="input input-bordered w-full sm:w-72"
+            className="border input input-bordered w-full sm:w-72 bg-white dark:bg-gray-800 pl-2"
             placeholder="Search services..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}

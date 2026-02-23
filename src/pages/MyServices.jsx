@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { deleteService, getServices } from "../api/services";
+import Swal from 'sweetalert2';
 
 export default function MyServices() {
   const { user } = useAuth();
@@ -25,12 +26,25 @@ export default function MyServices() {
 
   useEffect(() => {
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.email]);
 
+
   const handleDelete = async (id) => {
-    const ok = confirm("Delete this service?");
-    if (!ok) return;
+    const result = await Swal.fire({
+      title: 'Delete service?',
+      text: 'Are you sure you want to delete this service?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, Delete',
+      cancelButtonText: 'No',
+      reverseButtons: true,
+      background: document.documentElement.classList.contains('dark') ? '#1f2937' : '#ffffff',
+      color: document.documentElement.classList.contains('dark') ? '#f3f4f6' : '#111827',
+    });
+
+    if (!result.isConfirmed) return;
 
     try {
       await deleteService(id);
@@ -51,7 +65,7 @@ export default function MyServices() {
           <p className="opacity-70 mt-1">Manage services you’ve added.</p>
         </div>
 
-        <Link to="/add-service" className="btn btn-primary btn-sm">
+        <Link to="/add-service" className="btn btn-secondary btn-sm">
           + Add Service
         </Link>
       </div>
@@ -63,18 +77,18 @@ export default function MyServices() {
       ) : (
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5">
           {items.map((s) => (
-            <div key={s._id} className="card bg-base-100 border">
+            <div key={s._id} className="card bg-primary border">
               <div className="card-body">
                 <div className="flex gap-4">
                   <img
                     src={s.imageURL}
                     alt={s.serviceName}
-                    className="w-24 h-24 rounded-xl object-cover"
+                    className="w-48 h-48 rounded-xl object-cover"
                   />
                   <div className="flex-1">
-                    <h3 className="font-bold text-lg">{s.serviceName}</h3>
-                    <div className="text-sm opacity-70">{s.category}</div>
-                    <div className="mt-1 font-extrabold text-teal-700">
+                    <h3 className="font-bold text-xl">{s.serviceName}</h3>
+                    <div className="text-base opacity-70">{s.category}</div>
+                    <div className="mt-2 font-extrabold text-lg text-teal-700">
                       ${s.price}
                     </div>
                     <div className="text-xs opacity-60 mt-1">
@@ -86,13 +100,13 @@ export default function MyServices() {
                 <div className="card-actions justify-end mt-4">
                   <Link
                     to={`/update-service/${s._id}`}
-                    className="btn btn-outline btn-sm"
+                    className="btn btn-outline hover:bg-gray-400 btn-sm border"
                   >
                     Edit
                   </Link>
                   <button
                     onClick={() => handleDelete(s._id)}
-                    className="btn btn-outline btn-sm"
+                    className="btn bg-red-600 hover:bg-red-700 btn-sm"
                   >
                     Delete
                   </button>
