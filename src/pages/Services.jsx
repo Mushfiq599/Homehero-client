@@ -69,7 +69,7 @@ export default function Services() {
           </div>
 
           <input
-            className="input input-bordered w-full sm:w-64 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 pl-2"
+            className="input input-bordered border w-full sm:w-64 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 pl-2"
             placeholder="Search by name..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -80,7 +80,7 @@ export default function Services() {
             placeholder="Min Price"
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
-            className="input input-bordered w-full sm:w-24 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 pl-2"
+            className="input input-bordered border w-full sm:w-24 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 pl-2"
           />
 
           <input
@@ -88,7 +88,7 @@ export default function Services() {
             placeholder="Max Price"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
-            className="input input-bordered w-full sm:w-24 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 pl-2"
+            className="input input-bordered border w-full sm:w-24 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 pl-2"
           />
         </div>
       </div>

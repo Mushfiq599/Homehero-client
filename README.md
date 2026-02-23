@@ -1,6 +1,6 @@
 # HomeHero - Local Household Service Finder
 
-**Live Site**: [https://homehero-client.netlify.app](https://homehero-client.netlify.app) 
+**Live Site**: [https://homehero-client.netlify.app]
 
 **Backend Repo**: https://github.com/Mushfiq599/homehero-server  
 **Client Repo**: https://github.com/Mushfiq599/Homehero-client
@@ -21,6 +21,6 @@
 - Backend: Node.js, Express, MongoDB (Atlas), Mongoose
 - Auth: Firebase Authentication
 - Deployment: Netlify (client), Vercel (server)
-!
+
 
 

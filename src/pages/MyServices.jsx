@@ -79,11 +79,11 @@ export default function MyServices() {
           {items.map((s) => (
             <div key={s._id} className="card bg-primary border">
               <div className="card-body">
-                <div className="flex gap-4">
+                <div className="flex gap-3">
                   <img
                     src={s.imageURL}
                     alt={s.serviceName}
-                    className="w-48 h-48 rounded-xl object-cover"
+                    className="w-36 h-36 rounded-xl object-cover"
                   />
                   <div className="flex-1">
                     <h3 className="font-bold text-xl">{s.serviceName}</h3>
