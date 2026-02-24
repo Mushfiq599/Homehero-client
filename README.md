@@ -1,6 +1,6 @@
 # HomeHero - Local Household Service Finder
 
-**Live Site**: [https://homehero-client.netlify.app]
+**Live Site**: [https://homehero-36a96.web.app]
 
 **Backend Repo**: https://github.com/Mushfiq599/homehero-server  
 **Client Repo**: https://github.com/Mushfiq599/Homehero-client
